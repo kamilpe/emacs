@@ -1,0 +1,113 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(ecb-options-version "2.40")
+ '(menu-bar-mode nil)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 83 :width normal)))))
+
+;;;;;;;;;; Proxy configuration
+
+(setq url-proxy-services
+	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+		("http" . "87.254.212.120:8080")
+		("ftp" . "87.254.212.120:8080")))
+
+;;;;;;;;;; Melpa packages repository
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  (package-initialize))
+
+
+;;;;;;;;;; Editor customization
+
+(setq-default indent-tabs-mode nil)                      ;; spaces instead of tabs
+(setq tab-width 4)                                       ;; 4 spaces as tab
+(show-paren-mode t)                                      ;; highlight the parentheses
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))      ;; one line at a time    
+(setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling    
+(setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse    
+(setq scroll-step 1)                                     ;; keyboard scroll one line at a time
+(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; hs-* commands
+(savehist-mode 1)                                        ;; save command-line history
+
+;;;;;;;;;; C++ customization
+
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))   ;; treat .h as C++
+(setq-default c-basic-offset 4                           ;; tabs as 4 spaces
+              tab-width 4
+              indent-tabs-mode nil)
+(setq c-default-style "linux" c-basic-offset 4)          ;; C mode
+
+(global-set-key [f4] 'ff-find-other-file)                ;; easly switch between h and cpp
+(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; mode for callapse and expand of blocks
+(setq compilation-scroll-output 'first-error)            ;; scroll compilation window
+
+;;;;;;;;;; Function args
+
+;(add-hook 'prog-mode-hook #'function-args-mode)
+
+;;;;;;;;;; GGTAGS
+
+(add-hook 'c++-mode-hook #'ggtags-mode)
+(add-hook 'c-mode-hook #'ggtags-mode)
+;(add-hook 'prog-mode-hook #'company-mode)
+;(global-set-key (kbd "C-'") 'company-capf)
+
+;;;;;;;;;; ECB
+
+(require 'ecb)
+
+;;;;;;;;;; JavaScript
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))  ;; enable js2 major mode for js files
+(add-hook 'js2-mode-hook 'auto-complete-mode)            ;; enable ac mode in js2 
+(setq js2-highlight-level 3)                             ;; what this gives?
+
+(require 'flycheck)                                      ;; online checking of js code
+(add-hook 'js2-mode-hook (lambda () (flycheck-mode t)))
+
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))       ;; tags and auto completion
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+;;;;;;;;;; Highlight symbol under cursor
+
+(require 'highlight-symbol)
+(global-set-key [f3] 'highlight-symbol)
+(global-set-key [(ctrl f3)] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+
+;;;;;;;;;; NLinum replacement for linum mode
+
+(add-hook 'prog-mode-hook #'nlinum-mode)                 ;; enable line numbers only for programming
+(setq nlinum-format " %d ")                              ;; linum format
+(add-hook 'nlinum-mode-hook                              ;; Preset width nlinum
+          (lambda ()
+            (unless (boundp 'nlinum--width)
+              (setq nlinum--width
+                (length (number-to-string
+                         (count-lines (point-min) (point-max))))))))
+
+;;;;;;;;;; Projectile
+
+(projectile-global-mode)
+(setq projectile-indexing-method 'alien)
