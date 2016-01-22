@@ -69,10 +69,6 @@
 ;(add-hook 'prog-mode-hook #'company-mode)
 ;(global-set-key (kbd "C-'") 'company-capf)
 
-;;;;;;;;;; ECB
-
-(require 'ecb)
-
 ;;;;;;;;;; JavaScript
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))  ;; enable js2 major mode for js files
