@@ -46,6 +46,10 @@
 (add-hook 'prog-mode-hook #'hs-minor-mode)               ;; hs-* commands
 (savehist-mode 1)                                        ;; save command-line history
 
+;;;;;;;;;; Backup files storage
+
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+
 ;;;;;;;;;; C++ customization
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))   ;; treat .h as C++
@@ -77,6 +81,7 @@
 
 (require 'flycheck)                                      ;; online checking of js code
 (add-hook 'js2-mode-hook (lambda () (flycheck-mode t)))
+(require 'flycheck-flow)                                 ;; add flow to flycheck
 
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))       ;; tags and auto completion
 (eval-after-load 'tern
@@ -107,3 +112,4 @@
 
 (projectile-global-mode)
 (setq projectile-indexing-method 'alien)
+
