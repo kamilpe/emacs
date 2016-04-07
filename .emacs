@@ -97,16 +97,19 @@
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
 
-;;;;;;;;;; NLinum replacement for linum mode
+;;;;;;;;;; Lines
 
-(add-hook 'prog-mode-hook #'nlinum-mode)                 ;; enable line numbers only for programming
-(setq nlinum-format " %d ")                              ;; linum format
-(add-hook 'nlinum-mode-hook                              ;; Preset width nlinum
-          (lambda ()
-            (unless (boundp 'nlinum--width)
-              (setq nlinum--width
-                (length (number-to-string
-                         (count-lines (point-min) (point-max))))))))
+(add-hook 'prog-mode-hook #'linum-mode)                  ;; enable line numbers only for programming
+(require 'hlinum)
+(hlinum-activate)                                        ;; highlight linum
+(setq linum-delay t)                                     ;; Delay updates to give Emacs a chance for other changes
+(setq scroll-conservatively 10000)                       ;; scrolling to always be a line at a time
+(setq linum-format "%5d ")                               ;; linum format
+(add-hook 'prog-mode-hook (lambda ()
+    (hl-line-mode t)                                     ;; highlight current line ON
+    (set-face-background 'hl-line "#3e4446")             ;; background
+    (set-face-foreground 'highlight nil)                 ;; foreground from syntax
+))
 
 ;;;;;;;;;; Projectile
 
