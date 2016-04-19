@@ -101,9 +101,11 @@
 
 (add-hook 'prog-mode-hook #'linum-mode)                  ;; enable line numbers only for programming
 (require 'hlinum)
+(set-face-background 'linum-highlight-face "#3e4446")
+(set-face-foreground 'linum-highlight-face "#eeeeec")
 (hlinum-activate)                                        ;; highlight linum
-(setq linum-delay t)                                     ;; Delay updates to give Emacs a chance for other changes
-(setq scroll-conservatively 10000)                       ;; scrolling to always be a line at a time
+;(setq linum-delay t)                                     ;; Delay updates to give Emacs a chance for other changes
+;(setq scroll-conservatively 100)                       ;; scrolling to always be a line at a time
 (setq linum-format "%5d ")                               ;; linum format
 (add-hook 'prog-mode-hook (lambda ()
     (hl-line-mode t)                                     ;; highlight current line ON
