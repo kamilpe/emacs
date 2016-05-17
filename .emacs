@@ -81,7 +81,7 @@
 
 (require 'flycheck)                                      ;; online checking of js code
 (add-hook 'js2-mode-hook (lambda () (flycheck-mode t)))
-(require 'flycheck-flow)                                 ;; add flow to flycheck
+;(require 'flycheck-flow)                                 ;; add flow to flycheck
 
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))       ;; tags and auto completion
 (eval-after-load 'tern
@@ -104,8 +104,8 @@
 (set-face-background 'linum-highlight-face "#3e4446")
 (set-face-foreground 'linum-highlight-face "#eeeeec")
 (hlinum-activate)                                        ;; highlight linum
-;(setq linum-delay t)                                     ;; Delay updates to give Emacs a chance for other changes
-;(setq scroll-conservatively 100)                       ;; scrolling to always be a line at a time
+;(setq linum-delay t)                                    ;; Delay updates to give Emacs a chance for other changes
+;(setq scroll-conservatively 100)                        ;; scrolling to always be a line at a time
 (setq linum-format "%5d ")                               ;; linum format
 (add-hook 'prog-mode-hook (lambda ()
     (hl-line-mode t)                                     ;; highlight current line ON
