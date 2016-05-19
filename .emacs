@@ -99,14 +99,14 @@
 
 ;;;;;;;;;; Lines
 
-(add-hook 'prog-mode-hook #'linum-mode)                  ;; enable line numbers only for programming
-(require 'hlinum)
-(set-face-background 'linum-highlight-face "#3e4446")
-(set-face-foreground 'linum-highlight-face "#eeeeec")
-(hlinum-activate)                                        ;; highlight linum
+(add-hook 'prog-mode-hook #'nlinum-mode)                 ;; enable line numbers only for programming
+(require 'nlinum)
+;(set-face-background 'linum-highlight-face "#3e4446")
+;(set-face-foreground 'linum-highlight-face "#eeeeec")
+;(linum-activate)                                        ;; highlight linum
 ;(setq linum-delay t)                                    ;; Delay updates to give Emacs a chance for other changes
 ;(setq scroll-conservatively 100)                        ;; scrolling to always be a line at a time
-(setq linum-format "%5d ")                               ;; linum format
+(setq nlinum-format "%5d ")                              ;; linum format
 (add-hook 'prog-mode-hook (lambda ()
     (hl-line-mode t)                                     ;; highlight current line ON
     (set-face-background 'hl-line "#3e4446")             ;; background
