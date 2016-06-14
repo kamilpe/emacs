@@ -43,7 +43,6 @@
 (setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling    
 (setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse    
 (setq scroll-step 1)                                     ;; keyboard scroll one line at a time
-(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; hs-* commands
 (savehist-mode 1)                                        ;; save command-line history
 
 ;;;;;;;;;; Backup files storage
@@ -59,7 +58,7 @@
 (setq c-default-style "linux" c-basic-offset 4)          ;; C mode
 
 (global-set-key [f4] 'ff-find-other-file)                ;; easly switch between h and cpp
-(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; mode for callapse and expand of blocks
+;(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; mode for callapse and expand of blocks
 (setq compilation-scroll-output 'first-error)            ;; scroll compilation window
 
 ;;;;;;;;;; Function args
@@ -118,3 +117,11 @@
 (projectile-global-mode)
 (setq projectile-indexing-method 'alien)
 
+;;;;;;;;;; ansi colored compilation buffer
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
