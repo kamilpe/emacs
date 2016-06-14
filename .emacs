@@ -118,3 +118,7 @@
 (projectile-global-mode)
 (setq projectile-indexing-method 'alien)
 
+;;;;;;;;;; TTCN
+
+(add-to-list 'load-path "~/.emacs.d/ttcn-el/")
+(require 'ttcn3)
