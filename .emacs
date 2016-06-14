@@ -125,3 +125,9 @@
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+;;;;;;;;;; TTCN
+
+(add-to-list 'load-path "~/.emacs.d/ttcn-el/")
+(require 'ttcn3)
+
