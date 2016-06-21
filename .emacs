@@ -115,7 +115,10 @@
 ;;;;;;;;;; Projectile
 
 (projectile-global-mode)
-(setq projectile-indexing-method 'alien)
+(setq projectile-indexing-method 'native)
+(setq projectile-enable-caching t)
+(setq projectile-globally-ignored-directories (append '(".svn") projectile-globally-ignored-directories))
+(setq projectile-globally-ignored-files (append '("*.svn-base" "*.o" "*.pyc") projectile-globally-ignored-files))
 
 ;;;;;;;;;; ansi colored compilation buffer
 
@@ -125,9 +128,3 @@
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-
-;;;;;;;;;; TTCN
-
-(add-to-list 'load-path "~/.emacs.d/ttcn-el/")
-(require 'ttcn3)
-
