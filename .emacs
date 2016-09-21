@@ -20,8 +20,8 @@
 
 (setq url-proxy-services
 	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-		("http" . "87.254.212.120:8080")
-		("ftp" . "87.254.212.120:8080")))
+		("http" . "10.144.1.10:8080")
+		("ftp" . "10.144.1.10:8080")))
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -115,7 +115,7 @@
 ;;;;;;;;;; Projectile
 
 (projectile-global-mode)
-(setq projectile-indexing-method 'native)
+(setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn") projectile-globally-ignored-directories))
 (setq projectile-globally-ignored-files (append '("*.svn-base" "*.o" "*.pyc") projectile-globally-ignored-files))
@@ -128,3 +128,10 @@
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+;;;;;;;;;; Visual search and replace
+
+(require 'visual-regexp)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+
