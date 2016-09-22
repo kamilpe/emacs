@@ -8,13 +8,17 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(ecb-options-version "2.40")
  '(menu-bar-mode nil)
+ '(package-selected-packages
+   (quote
+    (ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 83 :width normal)))))
+ '(default ((t (:family : "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 95 :width normal)))))
+
 
 ;;;;;;;;;; Proxy configuration
 
