@@ -10,14 +10,15 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (visual-regexp projectile nlinum hlinum highlight-symbol ggtags flycheck company-ycm company ac-js2)))
+    (multiple-cursors ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 83 :width normal)))))
+ '(default ((t (:family : "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 95 :width normal)))))
+
 
 ;;;;;;;;;; Proxy configuration
 
@@ -138,3 +139,13 @@
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
 
+
+;;;;;;;;;; Multiple cursors
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)     ;; When you have an active region that spans
+                                                        ;; multiple lines, the following will add cursor
+                                                        ;; each line
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
