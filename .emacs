@@ -8,6 +8,9 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(ecb-options-version "2.40")
  '(menu-bar-mode nil)
+ '(package-selected-packages
+   (quote
+    (visual-regexp projectile nlinum hlinum highlight-symbol ggtags flycheck company-ycm company ac-js2)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
