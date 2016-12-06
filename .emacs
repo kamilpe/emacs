@@ -10,7 +10,11 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
+<<<<<<< HEAD
     (elpy multiple-cursors ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+=======
+    (cmake-mode elpy multiple-cursors ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+>>>>>>> a3c270d992bdedec3ce4292688c1d411087671aa
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -22,10 +26,10 @@
 
 ;;;;;;;;;; Proxy configuration
 
-(setq url-proxy-services
-	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-		("http" . "10.144.1.10:8080")
-		("ftp" . "10.144.1.10:8080")))
+;(setq url-proxy-services
+;	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+;		("http" . "10.144.1.10:8080")
+;		("ftp" . "10.144.1.10:8080")))
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -149,3 +153,8 @@
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
+
+;;;;;;;;;; Python
+(elpy-enable)
+(setq elpy-rpc-python-command "python3") 
+
