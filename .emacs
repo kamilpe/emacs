@@ -10,7 +10,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (cmake-mode elpy multiple-cursors ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+    (flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+ '(plantuml-jar-path (quote "/usr/share/java/plantuml\.jar"))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -22,10 +23,10 @@
 
 ;;;;;;;;;; Proxy configuration
 
-;(setq url-proxy-services
-;	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-;		("http" . "10.144.1.10:8080")
-;		("ftp" . "10.144.1.10:8080")))
+(setq url-proxy-services
+	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+		("http" . "10.144.1.10:8080")
+		("ftp" . "10.144.1.10:8080")))
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -150,7 +151,24 @@
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
 
+
 ;;;;;;;;;; Python
 (elpy-enable)
-(setq elpy-rpc-python-command "python3") 
+(setq elpy-rpc-python-command "python2") 
 
+
+;;;;;;;;;; Sphinx
+(require 'rst)
+(require 'sphinx-frontend)
+;(require 'auto-complete-rst)
+;(auto-complete-rst-init)
+
+
+;;;;;;;;;; PlantUML
+(with-eval-after-load 'flycheck
+  (require 'flycheck-plantuml)
+  (flycheck-plantuml-setup))
+(add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(add-hook 'plantuml-mode-hook 'auto-complete-mode)
+(add-hook 'plantuml-mode-hook (lambda () (flycheck-mode t)))
