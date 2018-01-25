@@ -10,8 +10,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
- '(plantuml-jar-path (quote "/usr/share/java/plantuml\.jar"))
+    (company-ycmd flycheck-ycmd flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+ '(plantuml-jar-path (quote "/usr/share/java/plantuml.jar"))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -49,6 +49,8 @@
 (setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse    
 (setq scroll-step 1)                                     ;; keyboard scroll one line at a time
 (savehist-mode 1)                                        ;; save command-line history
+(global-unset-key [(control z)])                         ;; Unbind Pesky Sleep Button
+(global-unset-key [(control x)(control z)])              ;; Unbind Pesky Sleep Button
 
 ;;;;;;;;;; Backup files storage
 
@@ -172,3 +174,8 @@
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (add-hook 'plantuml-mode-hook 'auto-complete-mode)
 (add-hook 'plantuml-mode-hook (lambda () (flycheck-mode t)))
+
+;;;;;;;;;; ycmpl
+;(require 'ycmd)
+;(ycmd-setup)
+
