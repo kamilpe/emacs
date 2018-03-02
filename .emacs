@@ -22,10 +22,10 @@
 
 ;;;;;;;;;; Proxy configuration
 
-;(setq url-proxy-services
-;	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-;		("http" . "10.144.1.10:8080")
-;		("ftp" . "10.144.1.10:8080")))
+(setq url-proxy-services
+	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+		("http" . "10.144.1.11:8080")
+		("ftp" . "10.144.1.11:8080")))
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -43,11 +43,15 @@
 (setq-default indent-tabs-mode nil)                      ;; spaces instead of tabs
 (setq tab-width 4)                                       ;; 4 spaces as tab
 (show-paren-mode t)                                      ;; highlight the parentheses
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))      ;; one line at a time    
-(setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling    
-(setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse    
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))      ;; one line at a time
+(setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse
 (setq scroll-step 1)                                     ;; keyboard scroll one line at a time
 (savehist-mode 1)                                        ;; save command-line history
+(column-number-mode 1)                                   ;; show column number in the bottom bar
+(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; always remove trailing whitespace
+(global-unset-key [(control z)])                         ;; Unbind Pesky Sleep Button
+(global-unset-key [(control x)(control z)])              ;; Unbind Pesky Sleep Button
 
 ;;;;;;;;;; Backup files storage
 
@@ -79,7 +83,7 @@
 ;;;;;;;;;; JavaScript
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))  ;; enable js2 major mode for js files
-(add-hook 'js2-mode-hook 'auto-complete-mode)            ;; enable ac mode in js2 
+(add-hook 'js2-mode-hook 'auto-complete-mode)            ;; enable ac mode in js2
 (setq js2-highlight-level 3)                             ;; what this gives?
 
 (require 'flycheck)                                      ;; online checking of js code
@@ -151,6 +155,5 @@
 (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
 
 ;;;;;;;;;; Python
-(elpy-enable)
-(setq elpy-rpc-python-command "python3") 
-
+;(elpy-enable)
+;(setq elpy-rpc-python-command "python2")
