@@ -10,7 +10,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (cmake-mode elpy multiple-cursors ycmd tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+    (flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+ '(plantuml-jar-path (quote "/usr/share/java/plantuml\.jar"))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -26,6 +27,7 @@
 	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
 		("http" . "10.144.1.11:8080")
 		("ftp" . "10.144.1.11:8080")))
+
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -53,9 +55,11 @@
 (global-unset-key [(control z)])                         ;; Unbind Pesky Sleep Button
 (global-unset-key [(control x)(control z)])              ;; Unbind Pesky Sleep Button
 
+
 ;;;;;;;;;; Backup files storage
 
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+
 
 ;;;;;;;;;; C++ customization
 
@@ -69,9 +73,11 @@
 ;(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; mode for callapse and expand of blocks
 (setq compilation-scroll-output 'first-error)            ;; scroll compilation window
 
+
 ;;;;;;;;;; Function args
 
 ;(add-hook 'prog-mode-hook #'function-args-mode)
+
 
 ;;;;;;;;;; GGTAGS
 
@@ -79,6 +85,7 @@
 (add-hook 'c-mode-hook #'ggtags-mode)
 ;(add-hook 'prog-mode-hook #'company-mode)
 ;(global-set-key (kbd "C-'") 'company-capf)
+
 
 ;;;;;;;;;; JavaScript
 
@@ -96,6 +103,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
+
 ;;;;;;;;;; Highlight symbol under cursor
 
 (require 'highlight-symbol)
@@ -103,6 +111,7 @@
 (global-set-key [(ctrl f3)] 'highlight-symbol-next)
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+
 
 ;;;;;;;;;; Lines
 
@@ -120,6 +129,7 @@
     (set-face-foreground 'highlight nil)                 ;; foreground from syntax
 ))
 
+
 ;;;;;;;;;; Projectile
 
 (projectile-global-mode)
@@ -127,6 +137,7 @@
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn") projectile-globally-ignored-directories))
 (setq projectile-globally-ignored-files (append '("*.svn-base" "*.o" "*.pyc") projectile-globally-ignored-files))
+
 
 ;;;;;;;;;; ansi colored compilation buffer
 
@@ -136,6 +147,7 @@
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 
 ;;;;;;;;;; Visual search and replace
 
@@ -154,6 +166,25 @@
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)
 
+
 ;;;;;;;;;; Python
-;(elpy-enable)
-;(setq elpy-rpc-python-command "python2")
+(elpy-enable)
+(setq elpy-rpc-python-command "python2") 
+
+
+;;;;;;;;;; Sphinx
+(require 'rst)
+(require 'sphinx-frontend)
+;(require 'auto-complete-rst)
+;(auto-complete-rst-init)
+
+
+;;;;;;;;;; PlantUML
+(with-eval-after-load 'flycheck
+  (require 'flycheck-plantuml)
+  (flycheck-plantuml-setup))
+(add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(add-hook 'plantuml-mode-hook 'auto-complete-mode)
+(add-hook 'plantuml-mode-hook (lambda () (flycheck-mode t)))
+
