@@ -25,8 +25,9 @@
 
 (setq url-proxy-services
 	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-		("http" . "10.144.1.10:8080")
-		("ftp" . "10.144.1.10:8080")))
+		("http" . "10.144.1.11:8080")
+		("ftp" . "10.144.1.11:8080")))
+
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -44,17 +45,21 @@
 (setq-default indent-tabs-mode nil)                      ;; spaces instead of tabs
 (setq tab-width 4)                                       ;; 4 spaces as tab
 (show-paren-mode t)                                      ;; highlight the parentheses
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))      ;; one line at a time    
-(setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling    
-(setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse    
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))      ;; one line at a time
+(setq mouse-wheel-progressive-speed nil)                 ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't)                       ;; scroll window under mouse
 (setq scroll-step 1)                                     ;; keyboard scroll one line at a time
 (savehist-mode 1)                                        ;; save command-line history
+(column-number-mode 1)                                   ;; show column number in the bottom bar
+(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; always remove trailing whitespace
 (global-unset-key [(control z)])                         ;; Unbind Pesky Sleep Button
 (global-unset-key [(control x)(control z)])              ;; Unbind Pesky Sleep Button
+
 
 ;;;;;;;;;; Backup files storage
 
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+
 
 ;;;;;;;;;; C++ customization
 
@@ -68,9 +73,11 @@
 ;(add-hook 'prog-mode-hook #'hs-minor-mode)               ;; mode for callapse and expand of blocks
 (setq compilation-scroll-output 'first-error)            ;; scroll compilation window
 
+
 ;;;;;;;;;; Function args
 
 ;(add-hook 'prog-mode-hook #'function-args-mode)
+
 
 ;;;;;;;;;; GGTAGS
 
@@ -79,10 +86,11 @@
 ;(add-hook 'prog-mode-hook #'company-mode)
 ;(global-set-key (kbd "C-'") 'company-capf)
 
+
 ;;;;;;;;;; JavaScript
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))  ;; enable js2 major mode for js files
-(add-hook 'js2-mode-hook 'auto-complete-mode)            ;; enable ac mode in js2 
+(add-hook 'js2-mode-hook 'auto-complete-mode)            ;; enable ac mode in js2
 (setq js2-highlight-level 3)                             ;; what this gives?
 
 (require 'flycheck)                                      ;; online checking of js code
@@ -95,6 +103,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
+
 ;;;;;;;;;; Highlight symbol under cursor
 
 (require 'highlight-symbol)
@@ -102,6 +111,7 @@
 (global-set-key [(ctrl f3)] 'highlight-symbol-next)
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+
 
 ;;;;;;;;;; Lines
 
@@ -119,6 +129,7 @@
     (set-face-foreground 'highlight nil)                 ;; foreground from syntax
 ))
 
+
 ;;;;;;;;;; Projectile
 
 (projectile-global-mode)
@@ -126,6 +137,7 @@
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn") projectile-globally-ignored-directories))
 (setq projectile-globally-ignored-files (append '("*.svn-base" "*.o" "*.pyc") projectile-globally-ignored-files))
+
 
 ;;;;;;;;;; ansi colored compilation buffer
 
@@ -135,6 +147,7 @@
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 
 ;;;;;;;;;; Visual search and replace
 
@@ -174,8 +187,4 @@
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (add-hook 'plantuml-mode-hook 'auto-complete-mode)
 (add-hook 'plantuml-mode-hook (lambda () (flycheck-mode t)))
-
-;;;;;;;;;; ycmpl
-;(require 'ycmd)
-;(ycmd-setup)
 
