@@ -10,7 +10,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (company-ycmd flycheck-ycmd flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
+    (flymake-python-pyflakes company-ycmd flycheck-ycmd flycheck-plantuml plantuml-mode ycmd sphinx-frontend sphinx-mode cmake-mode elpy multiple-cursors tern-auto-complete rtags projectile nlinum hlinum highlight-symbol ggtags function-args flycheck-flow company-c-headers ac-js2)))
  '(plantuml-jar-path (quote "/usr/share/java/plantuml.jar"))
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -19,15 +19,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family : "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 95 :width normal)))))
-
-
-;;;;;;;;;; Proxy configuration
-
-(setq url-proxy-services
-	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-		("http" . "10.144.1.11:8080")
-		("ftp" . "10.144.1.11:8080")))
-
 
 ;;;;;;;;;; Melpa packages repository
 
@@ -169,7 +160,10 @@
 
 ;;;;;;;;;; Python
 (elpy-enable)
-(setq elpy-rpc-python-command "python2") 
+(setq elpy-rpc-python-command "python3.7")
+;(require 'flymake-python-pyflakes)
+;(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+;(setq flymake-python-pyflakes-executable "flake8-3.7")
 
 
 ;;;;;;;;;; Sphinx
@@ -187,4 +181,3 @@
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (add-hook 'plantuml-mode-hook 'auto-complete-mode)
 (add-hook 'plantuml-mode-hook (lambda () (flycheck-mode t)))
-
