@@ -29,6 +29,11 @@
 		("ftp" . "10.144.1.11:8080")))
 
 
+;;;;;;;;;; Restore previous sessions
+
+(desktop-save-mode 1)
+
+
 ;;;;;;;;;; Melpa packages repository
 
 (when (>= emacs-major-version 24)
